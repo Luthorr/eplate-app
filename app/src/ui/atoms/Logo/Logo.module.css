@@ -1,0 +1,6 @@
+@value v-fnt-bold from 'ui/assets/styles/variables.module.css';
+
+.logo {
+  font-weight: v-fnt-bold;
+  font-size: 2rem;
+}

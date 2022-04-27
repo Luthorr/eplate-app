@@ -1,5 +1,12 @@
 import AppRoutes from 'routing/AppRoutes';
+import Navigation from 'ui/organism/Navigation/Navigation';
+import './App.css';
 
-const App = () => <AppRoutes />;
+const App = () => (
+  <>
+    <Navigation />
+    <AppRoutes />
+  </>
+);
 
 export default App;

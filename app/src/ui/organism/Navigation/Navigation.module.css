@@ -1,0 +1,19 @@
+.navbar {
+  background-color: var(--pi-primary);
+}
+
+.navbarLinkContainer {
+  column-gap: 1rem;
+}
+
+.navLinks{
+  background-color: red;
+}
+
+.navLinks .nav-link {
+  color: rgba(238, 44, 44, 0.85) !important;
+}
+
+.navLinks .nav-link:hover {
+  color: white !important;
+}
