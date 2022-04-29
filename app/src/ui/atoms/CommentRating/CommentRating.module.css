@@ -1,0 +1,17 @@
+.wrapper {
+  background-color: var(--color-gray);
+  border-radius: 20px;
+  padding: 0.7rem 0.6rem;
+}
+
+.rating {
+  color: var(--pi-primary);
+  font-weight: 700;
+  margin: 0;
+  font-size: 1.1rem;
+  margin-top: 5px;
+}
+
+.icon {
+  cursor: pointer;
+}

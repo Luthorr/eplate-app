@@ -5,7 +5,9 @@ import './App.css';
 const App = () => (
   <>
     <Navigation />
-    <AppRoutes />
+    <main>
+      <AppRoutes />
+    </main>
   </>
 );
 

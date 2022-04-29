@@ -1,11 +1,38 @@
+@value bp-md from 'ui/assets/styles/variables.module.css';
+
 .nav-link {
-  color: rgba(255,255,255,0.85) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 
 .nav-link:hover {
   color: white !important;
 }
 
-.dropdown-item:active{
+.dropdown-item:active {
   background-color: var(--pi-primary--dark) !important;
+}
+
+.bubbleDiv .searchBar__inputContainer,
+.bubbleDiv .searchBar__inputContainer input,
+.bubbleDiv .searchBar__buttonContainer,
+.bubbleDiv .searchBar__buttonContainer button {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .bubbleDiv .searchBar__inputContainer,
+  .bubbleDiv .searchBar__buttonContainer {
+    width: initial;
+  }
+
+  .bubbleDiv .searchBar__inputContainer input {
+    width: 40vw;
+    max-width: 700px;
+  }
+
+  .bubbleDiv .searchBar__buttonContainer button {
+    width: 12vw;
+    max-width: 150px;
+    min-width: 120px;
+  }
 }

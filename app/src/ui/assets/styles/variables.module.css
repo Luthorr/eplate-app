@@ -1,1 +1,8 @@
 @value v-fnt-bold: 700;
+@value v-border-radius: 8px;
+
+@value bp-sm: 576px;
+@value bp-md: 768px;
+@value bp-lg: 992px;
+@value bp-xl: 1200px;
+@value bp-xxl: 1400px;

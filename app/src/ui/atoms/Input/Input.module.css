@@ -1,0 +1,16 @@
+@value v-border-radius from 'ui/assets/styles/variables.module.css';
+
+.input {
+  border-radius: v-border-radius;
+  height: 42px;
+  padding: 0 1.5rem;
+  border: 2px solid var(--border);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  outline: 0;
+  color: var(--color-gray--darker);
+}
+
+.input:focus {
+  border: 2px solid var(--outline);
+}

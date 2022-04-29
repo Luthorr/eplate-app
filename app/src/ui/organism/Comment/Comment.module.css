@@ -1,0 +1,11 @@
+@value v-border-radius from 'ui/assets/styles/variables.module.css';
+
+.comment {
+  background-color: var(--white);
+  border-radius: v-border-radius;
+}
+
+.nickname {
+  font-weight: 700;
+  margin: 0;
+}

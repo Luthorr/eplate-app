@@ -5,11 +5,17 @@
   --color: #252525;
 
   --white: #ffffff;
+  --color-gray: #f0f1f6;
+  --color-gray--dark: #b4b4b4;
+  --color-gray--darker: #9a9a9c;
 
   --pi-primary--dark: #4540ca;
-  --pi-primary:#504be5;
+  --pi-primary: #504be5;
   --pi-primary--light: #535de3;
   --pi-primary--lighter: #8582ed;
+
+  --border: #8582ed;
+  --outline: #424ccb;
 }
 
 * {
