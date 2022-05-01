@@ -1,4 +1,4 @@
-import { Image } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 import plus from 'ui/assets/icons/plus.svg';
 import minus from 'ui/assets/icons/minus.svg';
 import classnames from 'classnames';

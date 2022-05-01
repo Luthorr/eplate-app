@@ -1,0 +1,11 @@
+.platesContainer h3:first-child {
+  color: var(--gold);
+}
+
+.platesContainer h3:nth-child(2) {
+  color: var(--silver);
+}
+
+.platesContainer h3:nth-child(3) {
+  color: var(--brown);
+}

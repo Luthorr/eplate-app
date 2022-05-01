@@ -9,6 +9,7 @@ import Image from 'react-bootstrap/Image';
 import rating from 'ui/assets/images/rating2.svg';
 import classnames from 'classnames';
 import BUTTON_VARIANTS from 'constants/Button';
+import SiteHeading from 'ui/atoms/SiteHeading/SiteHeading';
 import styles from './Home.module.css';
 
 const Home = () => (
@@ -16,12 +17,10 @@ const Home = () => (
     <Container className='px-3'>
       <Row className='d-flex flex-column-reverse flex-md-row py-5 '>
         <Col
-          md={7}
+          md={6}
           className='d-flex flex-column justify-content-center align-items-center py-5'
         >
-          <h1 className='display-4 fw-bold text-center text-md-start'>
-            Plate.io - rankomat kierowców
-          </h1>
+          <SiteHeading>Plate.io - rankomat kierowców</SiteHeading>
           <h5 className='text-muted'>
             Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
             posuere cubilia curae. Class aptent taciti sociosqu ad litora
@@ -29,7 +28,7 @@ const Home = () => (
           </h5>
         </Col>
         <Col
-          md={5}
+          md={6}
           className='d-flex flex-column justify-content-center align-items-center'
         >
           <Image src={rating} fluid />

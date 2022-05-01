@@ -4,10 +4,10 @@
   transition: 0.15s ease-in-out;
 }
 
-.navbarTransparent {
-  background-color: rgba(var(--pi-primary), 1);
-}
-
 .navbarLinkContainer {
   column-gap: 1rem;
+}
+
+.linkContainer {
+  padding: 0.5rem 0;
 }

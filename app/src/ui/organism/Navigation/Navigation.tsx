@@ -26,19 +26,19 @@ const Navigation = () => (
           )}
           navbarScroll
         >
-          <Nav.Link>
+          <div className={styles.linkContainer}>
             <StyledLink destination={AppRoute.Comments}>Komentarze</StyledLink>
-          </Nav.Link>
+          </div>
           <NavDropdown title='Województwa' id='navbarScrollingDropdown'>
             <NavDropdown.Item>Podlaskie</NavDropdown.Item>
             <NavDropdown.Item>Mazowieckie</NavDropdown.Item>
             <NavDropdown.Item>ETC.</NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link>
+          <div className={styles.linkContainer}>
             <StyledLink destination={AppRoute.Ranking}>
               Ranking kierowców
             </StyledLink>
-          </Nav.Link>
+          </div>
         </Nav>
         <CustomButton variant={BUTTON_VARIANTS.PRIMARY}>Zaloguj</CustomButton>
       </Navbar.Collapse>

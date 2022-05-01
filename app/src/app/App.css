@@ -1,13 +1,5 @@
 @value bp-md from 'ui/assets/styles/variables.module.css';
 
-.nav-link {
-  color: rgba(255, 255, 255, 0.85) !important;
-}
-
-.nav-link:hover {
-  color: white !important;
-}
-
 .dropdown-item:active {
   background-color: var(--pi-primary--dark) !important;
 }
@@ -35,4 +27,27 @@
     max-width: 150px;
     min-width: 120px;
   }
+}
+
+.customTabs {
+  display: flex;
+  justify-content: center;
+  border-bottom: 0;
+}
+
+.customTabs .nav-link {
+  border: none;
+  color: var(--black);
+  font-weight: 700;
+}
+
+.customTabs .nav-tabs .nav-link:hover {
+  border: 3px solid red !important;
+  border-color: transparent !important;
+}
+
+.customTabs .nav-link.active {
+  border: none !important;
+  border-color: transparent !important;
+  border-bottom: 2px solid var(--pi-primary--dark) !important;
 }
