@@ -4,3 +4,12 @@
   font-weight: v-fnt-bold;
   font-size: 2rem;
 }
+
+.logo a {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.logo a:hover {
+  color: var(--white);
+}

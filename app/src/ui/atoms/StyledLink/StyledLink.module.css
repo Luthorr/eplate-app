@@ -1,0 +1,14 @@
+.styledLink {
+  color: rgba(255, 255, 255, 0.85) !important;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+}
+
+.styledLink:hover {
+  color: var(--white) !important;
+}
+
+.active {
+  color: var(--white) !important;
+  border-bottom: 2px dashed var(--white);
+}

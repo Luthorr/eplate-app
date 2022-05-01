@@ -1,6 +1,8 @@
 enum AppRoute {
   Home = '/',
-  Login = 'login',
+  Login = '/login',
+  Comments = '/comments',
+  Ranking = '/ranking',
   NotExisting = '*',
 }
 

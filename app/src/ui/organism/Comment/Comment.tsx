@@ -16,7 +16,7 @@ const Comment = ({ rate }: { rate: number }) => (
           <p className={classnames('ms-4', styles.nickname)}>Luthorr</p>
           <p className='my-0 ms-4 text-muted'>data publikacji</p>
         </div>
-        <div className='ms-auto my-2'>
+        <div className='ms-auto ps-3 my-2'>
           <span>Zgłoś</span>
         </div>
       </div>
