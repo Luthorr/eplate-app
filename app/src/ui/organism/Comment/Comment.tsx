@@ -1,6 +1,6 @@
 import classnames from 'classnames';
-import { Image } from 'react-bootstrap';
 import avt from 'ui/assets/images/avatar.jpg';
+import Avatar from 'ui/atoms/Avatar/Avatar';
 import CommentRating from 'ui/atoms/CommentRating/CommentRating';
 import styles from './Comment.module.css';
 
@@ -12,7 +12,7 @@ const Comment = ({ rate }: { rate: number }) => (
     <div className='flex-grow-1'>
       <div className='d-flex justify-content-between align-items-center flex-wrap-reverse'>
         <div className='d-flex align-items-center'>
-          <Image src={avt} height={35} width={35} roundedCircle />
+          <Avatar img={avt} />
           <p className={classnames('ms-4', styles.nickname)}>Luthorr</p>
           <p className='my-0 ms-4 text-muted'>data publikacji</p>
         </div>

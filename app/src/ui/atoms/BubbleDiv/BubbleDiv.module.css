@@ -1,0 +1,10 @@
+@value v-border-radius from 'ui/assets/styles/variables.module.css';
+
+.bubbleDiv {
+  background-image: url('ui/assets/images/bubblePattern.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #3a3053;
+  border-radius: v-border-radius;
+}

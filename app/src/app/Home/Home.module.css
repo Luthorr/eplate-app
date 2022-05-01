@@ -1,17 +1,18 @@
-@value v-border-radius from 'ui/assets/styles/variables.module.css';
+@value bp-md from 'ui/assets/styles/variables.module.css';
 
 .bgGray {
   background-color: var(--color-gray);
-  margin: 8rem 0;
+  margin-top: 8rem;
 }
 
-.bubbleDiv {
-  background-image: url('ui/assets/images/bubblePattern.svg');
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #3a3053;
-  border-radius: v-border-radius;
+.bubbleDivWrapper {
   position: relative;
-  bottom: 69px;
+  bottom: 77px;
+  padding: 0 !important;
+}
+
+@media (max-width: bp-md) {
+  .bubbleDivWrapper {
+    bottom: 40px;
+  }
 }

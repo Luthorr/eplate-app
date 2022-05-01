@@ -1,11 +1,14 @@
 import SearchBar from 'ui/molecules/SearchBar/SearchBar';
 import Comment from 'ui/organism/Comment/Comment';
+import BubbleDiv from 'ui/atoms/BubbleDiv/BubbleDiv';
+import CustomButton from 'ui/atoms/Button/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import rating from 'ui/assets/images/rating2.svg';
 import classnames from 'classnames';
+import BUTTON_VARIANTS from 'constants/Button';
 import styles from './Home.module.css';
 
 const Home = () => (
@@ -33,19 +36,18 @@ const Home = () => (
         </Col>
       </Row>
     </Container>
-    <Container fluid className={classnames('px-0', styles.bgGray)}>
+    <Container fluid className={classnames('px-0 pb-5', styles.bgGray)}>
       <Container className='px-3'>
         <Row>
-          <Col
-            className={classnames(
-              'd-flex justify-content-center align-items-center col-12 py-5 bubbleDiv',
-              styles.bubbleDiv,
-            )}
+          <div
+            className={classnames('home__bubbleDiv', styles.bubbleDivWrapper)}
           >
-            <Col className='col-12 d-flex justify-content-center align-items-center'>
-              <SearchBar />
-            </Col>
-          </Col>
+            <BubbleDiv>
+              <Col className='col-12 d-flex justify-content-center align-items-center py-5'>
+                <SearchBar />
+              </Col>
+            </BubbleDiv>
+          </div>
         </Row>
         <Row>
           <Col>
@@ -54,8 +56,15 @@ const Home = () => (
         </Row>
         <Row className='my-4'>
           {[8, 52, 312].map((rate) => (
-            <Comment rate={rate} />
+            <Comment key={rate} rate={rate} />
           ))}
+        </Row>
+        <Row>
+          <div className='d-flex justify-content-center align-items-center'>
+            <CustomButton variant={BUTTON_VARIANTS.PRIMARY}>
+              Zobacz więcej
+            </CustomButton>
+          </div>
         </Row>
       </Container>
     </Container>

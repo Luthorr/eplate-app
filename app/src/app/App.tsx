@@ -1,4 +1,5 @@
 import AppRoutes from 'routing/AppRoutes';
+import Footer from 'ui/organism/Footer/Footer';
 import Navigation from 'ui/organism/Navigation/Navigation';
 import './App.css';
 
@@ -8,6 +9,7 @@ const App = () => (
     <main>
       <AppRoutes />
     </main>
+    <Footer />
   </>
 );
 
