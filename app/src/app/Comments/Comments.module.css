@@ -1,0 +1,14 @@
+.bgGray {
+  background-color: var(--color-gray);
+}
+
+.filterButton {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+}
+
+.filterButton img {
+  filter: invert();
+}
