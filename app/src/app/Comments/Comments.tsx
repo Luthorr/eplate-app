@@ -77,7 +77,7 @@ const Comments = () => {
           </Row>
           <Row>
             {[10, 200, 341, 35, 27, 721, 24, 5, 12, 0].map((numb) => (
-              <Comment rate={numb} />
+              <Comment key={numb} rate={numb} />
             ))}
           </Row>
           <Row>

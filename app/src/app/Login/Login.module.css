@@ -1,0 +1,53 @@
+.wrapper {
+  background-image: url('ui/assets/images/loginBG.svg');
+  background-position: center center;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+.formContainer {
+  background-color: var(--white);
+  width: 100%;
+  max-width: 600px;
+  padding: 4rem 0;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  position: relative;
+}
+
+.formContainer input {
+  margin-bottom: 0.5rem;
+}
+
+.formContainer button {
+  margin-top: 1.5rem;
+}
+
+.formContainer a {
+  color: var(--black);
+  text-decoration: none;
+}
+
+.logoContainer {
+  position: absolute;
+  inset: 0;
+}
+
+.logoContainer a {
+  font-size: 1.6rem !important;
+  color: var(--black) !important;
+}
+
+@media (max-width: 1024px) {
+  .formContainer {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .formContainer {
+    width: 100%;
+  }
+}
