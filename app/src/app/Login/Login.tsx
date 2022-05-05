@@ -34,7 +34,6 @@ const Login = () => (
         <hr />
         <div className='d-flex flex-column text-center'>
           <Link to='/'>Stwórz konto</Link>
-          <Link to='/'>Zapomniałem hasła</Link>
         </div>
       </div>
     </Row>

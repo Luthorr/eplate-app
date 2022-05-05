@@ -14,9 +14,7 @@ const Ranking = () => (
           <Image src={ranking} fluid />
         </Col>
         <Col md={6} className='pt-5 pb-4'>
-          <SiteHeading>
-            <div className='ms-md-3'>Ranking kierowców</div>
-          </SiteHeading>
+          <SiteHeading text='Ranking kierowców' />
         </Col>
       </Col>
     </Row>
