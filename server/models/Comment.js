@@ -24,21 +24,27 @@ class Comment {
     ]);
   }
 
+  static delete(id) {
+    const sql = 'DELETE FROM comment WHERE id = ?';
+    return db.execute(sql, [id]);
+  }
+
   static getAll() {
     let sql =
       'SELECT c.id, c.plateId, c.date, u.nick, p.plateText, c.votes, c.opinionId FROM comment c, user u, plate p WHERE c.userId = u.id AND c.plateId = p.id';
     return db.execute(sql);
   }
 
-  static delete(id) {
-    const sql = 'DELETE FROM comment WHERE id = ?';
-    return db.execute(sql, [id]);
-  }
-
-  static getPlateComments(plateId) {
+  static getSpecificPlateComments(plateId) {
     let sql =
       'SELECT c.id, c.plateId, c.date, u.nick, p.plateText, c.votes, c.opinionId FROM comment c, user u, plate p WHERE c.userId = u.id AND c.plateId = p.id AND c.plateId = ?';
     return db.execute(sql, [plateId]);
+  }
+
+  static getPlateCommentsByText(plateText) {
+    let sql =
+      'SELECT c.id, c.plateId, c.date, u.nick, p.plateText, c.votes, c.opinionId FROM comment c, user u, plate p WHERE c.userId = u.id AND c.plateId = p.id AND p.plateText LIKE ?';
+    return db.execute(sql, [`${plateText}%`]);
   }
 }
 

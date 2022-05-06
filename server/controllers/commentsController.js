@@ -23,10 +23,21 @@ export const getComments = async (req, res, next) => {
   }
 };
 
-export const getPlateComments = async (req, res, next) => {
+export const getSpecificPlateComments = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const [result, _] = await Comment.getPlateComments(id);
+    const [result, _] = await Comment.getSpecificPlateComments(id);
+    res.status(200).json(formatArray(result));
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+export const getPlateCommentsByText = async (req, res, next) => {
+  try {
+    const { searchTerm } = req.params;
+    const [result, _] = await Comment.getPlateCommentsByText(searchTerm);
     res.status(200).json(formatArray(result));
   } catch (error) {
     console.log(error);
