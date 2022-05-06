@@ -1,21 +1,33 @@
 import Comment from '../models/Comment.js';
 
+const formatArray = (arr) =>
+  arr.map(({ id, plateId, date, nick, plateText, votes, opinionId }) => {
+    return {
+      id,
+      plate: { id: plateId, plateText },
+      user: { nick },
+      votes,
+      date,
+      opinionId,
+    };
+  });
+
 export const getComments = async (req, res, next) => {
   try {
     const [result, _] = await Comment.getAll();
 
-    res.status(200).json(
-      result.map(({ id, plateId, date, nick, plateText, votes, opinionId }) => {
-        return {
-          id,
-          plate: { id: plateId, plateText },
-          user: { nick },
-          votes,
-          date,
-          opinionId,
-        };
-      })
-    );
+    res.status(200).json(formatArray(result));
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+export const getPlateComments = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const [result, _] = await Comment.getPlateComments(id);
+    res.status(200).json(formatArray(result));
   } catch (error) {
     console.log(error);
     next(error);
@@ -38,7 +50,8 @@ export const createComment = async (req, res, next) => {
 
 export const deleteComment = async (req, res, next) => {
   try {
-    await Comment.delete(req.params.id);
+    const { id } = req.params;
+    await Comment.delete(id);
     res.status(200).send('Komentarz został usunięty!');
   } catch (error) {
     console.log(error);
