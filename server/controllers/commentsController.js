@@ -1,4 +1,5 @@
 import Comment from '../models/Comment.js';
+import Plate from '../models/Plate.js';
 
 const formatArray = (arr) =>
   arr.map(({ id, plateId, date, nick, plateText, votes, opinionId }) => {
@@ -47,9 +48,21 @@ export const getPlateCommentsByText = async (req, res, next) => {
 
 export const createComment = async (req, res, next) => {
   try {
-    const { userId, plateId, commentMsg, date, opinionId } = req.body;
+    const { userId, plateText, commentMsg, date, opinionId } = req.body;
+    const plateTextToUpper = plateText.toUpperCase();
+
+    let [plateId, _] = await Plate.getPlateId(plateTextToUpper);
+    plateId = plateId[0].id || null;
+
+    if (!plateId) {
+      let newPlate = new Plate(plateTextToUpper);
+      newPlate = await newPlate.save();
+      plateId = newPlate[0].insertId;
+    }
+
     let comment = new Comment(userId, plateId, commentMsg, date, opinionId);
     comment = await comment.save();
+
     res
       .status(201)
       .send({ message: `Wstawiono komentarz o ID: ${comment[0].insertId}` });
