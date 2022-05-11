@@ -2,22 +2,24 @@ import Comment from '../models/Comment.js';
 import Plate from '../models/Plate.js';
 
 const formatArray = (arr) =>
-  arr.map(({ id, plateId, date, nick, plateText, votes, opinionId }) => {
-    return {
-      id,
-      plate: { id: plateId, plateText },
-      user: { nick },
-      votes,
-      date,
-      opinionId,
-    };
-  });
+  arr.map(
+    ({ id, plateId, date, nick, avatar, plateText, votes, opinionId }) => {
+      return {
+        id,
+        plate: { id: plateId, plateText },
+        user: { nick, avatar },
+        votes,
+        date,
+        opinionId,
+      };
+    }
+  );
 
 export const getComments = async (req, res, next) => {
   try {
     const [result, _] = await Comment.getAll();
 
-    res.status(200).json(formatArray(result));
+    res.status(200).json(result);
   } catch (error) {
     console.log(error);
     next(error);

@@ -31,7 +31,7 @@ class Comment {
 
   static getAll() {
     let sql =
-      'SELECT c.id, c.plateId, c.date, u.nick, p.plateText, c.votes, c.opinionId FROM comment c, user u, plate p WHERE c.userId = u.id AND c.plateId = p.id';
+      'SELECT c.id, c.plateId, c.commentMsg, c.date, u.nick, u.avatar, p.plateText, c.votes, c.opinionId FROM comment c, user u, plate p WHERE c.userId = u.id AND c.plateId = p.id';
     return db.execute(sql);
   }
 
