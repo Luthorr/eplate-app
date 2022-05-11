@@ -1,22 +1,19 @@
-import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import discussion from 'ui/assets/images/discussion.svg';
 import BubbleDiv from 'ui/atoms/BubbleDiv/BubbleDiv';
-import Comment from 'ui/organism/Comment/Comment';
 import classnames from 'classnames';
 import SearchBar from 'ui/molecules/SearchBar/SearchBar';
 import filterIcon from 'ui/assets/icons/filter.svg';
+import CommentsSection from 'ui/organism/CommentsSection/CommentsSection';
+import useComments from 'hooks/useComments';
+
 import styles from './Comments.module.css';
 
 const Comments = () => {
-  const [showFilters, setShowFilters] = useState<boolean>(false);
-
-  const handleFilterVisibility = () => {
-    setShowFilters((prevState) => !prevState);
-  };
+  const { showFilters, handleFilterVisibility } = useComments();
 
   return (
     <Container fluid className='px-0'>
@@ -76,9 +73,7 @@ const Comments = () => {
             </Col>
           </Row>
           <Row>
-            {[10, 200, 341, 35, 27, 721, 24, 5, 12, 0].map((numb) => (
-              <Comment key={numb} rate={numb} />
-            ))}
+            <CommentsSection />
           </Row>
           <Row>
             <Col className='d-flex justify-content-center py-3 pb-4'>

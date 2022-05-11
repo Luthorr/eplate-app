@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
+
+import AppRoute from 'routing/AppRoutes.enum';
 import classnames from 'classnames';
 
 import SearchBar from 'ui/molecules/SearchBar/SearchBar';
-import Comment from 'ui/organism/Comment/Comment';
 import BubbleDiv from 'ui/atoms/BubbleDiv/BubbleDiv';
 import CustomButton from 'ui/atoms/Button/Button';
 import SiteParagraph from 'ui/atoms/SiteParagraph/SiteParagraph';
@@ -13,6 +15,7 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import rating from 'ui/assets/images/rating2.svg';
 import BUTTON_VARIANTS from 'constants/Button';
+import CommentsSection from 'ui/organism/CommentsSection/CommentsSection';
 import styles from './Home.module.css';
 
 const Home = () => (
@@ -57,14 +60,14 @@ const Home = () => (
           </Col>
         </Row>
         <Row className='my-4'>
-          {[8, 52, 312].map((rate) => (
-            <Comment key={rate} rate={rate} />
-          ))}
+          <CommentsSection visiblePostsLimit={3} />
         </Row>
         <div className='d-flex justify-content-center align-items-center'>
-          <CustomButton variant={BUTTON_VARIANTS.PRIMARY}>
-            Zobacz więcej
-          </CustomButton>
+          <Link to={AppRoute.Comments}>
+            <CustomButton variant={BUTTON_VARIANTS.PRIMARY}>
+              Zobacz więcej
+            </CustomButton>
+          </Link>
         </div>
       </Container>
     </Container>
