@@ -1,13 +1,13 @@
 import Comment from 'ui/organism/Comment/Comment';
-import { CommentMap } from 'shared/interfaces/Comment.types';
-import { getComments } from 'api/commentsApi';
-import { useQuery } from 'react-query';
+import { CommentType } from 'shared/interfaces/Comment.types';
+import { useAddCommentRating, useCommentsData } from 'hooks/useCommentsData';
 import { CommentsSectionProps } from './CommentsSection.types';
 
 const CommentsSection = ({ visiblePostsLimit }: CommentsSectionProps) => {
-  const { data, isLoading, isError } = useQuery(['comments'], getComments);
+  const { data, isLoading, isError, isIdle } = useCommentsData();
+  const { mutate: commentMutation } = useAddCommentRating();
 
-  if (isLoading) {
+  if (isLoading || isIdle) {
     return <div>Loading...</div>;
   }
 
@@ -18,6 +18,11 @@ const CommentsSection = ({ visiblePostsLimit }: CommentsSectionProps) => {
   const dataToPresent = visiblePostsLimit
     ? data.slice(0, visiblePostsLimit)
     : data;
+
+  const handleCommentRating = (commentId: number, vote: number): void => {
+    const userId = 1; // in future obtained from context api
+    commentMutation({ userId, commentId, vote });
+  };
 
   return (
     <>
@@ -31,9 +36,10 @@ const CommentsSection = ({ visiblePostsLimit }: CommentsSectionProps) => {
           plateText,
           plateId,
           commentMsg,
-        }: CommentMap) => (
+        }: CommentType) => (
           <Comment
             key={id}
+            id={id}
             nick={nick}
             avatar={avatar}
             votes={votes}
@@ -41,6 +47,7 @@ const CommentsSection = ({ visiblePostsLimit }: CommentsSectionProps) => {
             plateText={plateText}
             plateId={plateId}
             commentMsg={commentMsg}
+            handleCommentRating={handleCommentRating}
           />
         ),
       )}

@@ -1,9 +1,8 @@
 import { BrowserRouter as Router } from 'react-router-dom';
-import { QueryClientProvider, QueryClient } from 'react-query';
+import { QueryClientProvider } from 'react-query';
 import ScrollToTop from 'hooks/useScrollToTop';
 import { AppProvidersProps } from './AppProviders.types';
-
-const queryClient = new QueryClient();
+import queryClient from './QueryClient';
 
 const AppProviders = ({ children }: AppProvidersProps) => (
   <QueryClientProvider client={queryClient}>

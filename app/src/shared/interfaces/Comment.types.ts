@@ -1,4 +1,5 @@
-export interface CommentProps {
+export type CommentType = {
+  id: number;
   nick: string;
   avatar: string;
   votes: number;
@@ -6,8 +7,7 @@ export interface CommentProps {
   plateText: string;
   plateId: number;
   commentMsg: string;
-}
-
-export interface CommentMap extends CommentProps {
-  id: number;
-}
+};
+export type CommentProps = CommentType & {
+  handleCommentRating: (commentId: number, vote: number) => void;
+};

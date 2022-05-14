@@ -12,6 +12,14 @@
   margin-top: 5px;
 }
 
+.negative {
+  color: var(--color-red);
+}
+
+.positive {
+  color: var(--color-green);
+}
+
 .icon {
   cursor: pointer;
 }
