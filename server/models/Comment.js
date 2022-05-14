@@ -7,19 +7,17 @@ class Comment {
     this.commentMsg = commentMsg;
     this.date = date;
     this.opinionId = opinionId;
-    this.votes = 0;
   }
 
   save() {
     const sql =
-      'INSERT INTO comment(userId, plateId, commentMsg, date, votes, opinionId) VALUES (?,?,?,?,?,?)';
+      'INSERT INTO comment(userId, plateId, commentMsg, date, opinionId) VALUES (?,?,?,?,?)';
 
     return db.execute(sql, [
       this.userId,
       this.plateId,
       this.commentMsg,
       this.date,
-      this.votes,
       this.opinionId,
     ]);
   }
@@ -31,20 +29,27 @@ class Comment {
 
   static getAll() {
     let sql =
-      'SELECT c.id, c.plateId, c.commentMsg, c.date, u.nick, u.avatar, p.plateText, c.votes, c.opinionId FROM comment c, user u, plate p WHERE c.userId = u.id AND c.plateId = p.id';
+      'SELECT comment.id, comment.userId, comment.plateId, comment.commentMsg, comment.date, comment.opinionId, user.nick, plate.plateText, COALESCE(sum(user_comment_vote.vote),0) AS votes FROM `comment` LEFT JOIN `user_comment_vote` ON comment.id=user_comment_vote.commentId LEFT JOIN `plate` ON comment.plateId = plate.id LEFT JOIN `user` ON comment.userId = user.id GROUP BY comment.id';
     return db.execute(sql);
   }
 
   static getSpecificPlateComments(plateId) {
     let sql =
-      'SELECT c.id, c.plateId, c.date, u.nick, p.plateText, c.votes, c.opinionId FROM comment c, user u, plate p WHERE c.userId = u.id AND c.plateId = p.id AND c.plateId = ?';
+      'SELECT comment.id, comment.userId, comment.plateId, comment.commentMsg, comment.date, comment.opinionId, user.nick, plate.plateText, COALESCE(sum(user_comment_vote.vote),0) AS votes FROM `comment` LEFT JOIN `user_comment_vote` ON comment.id=user_comment_vote.commentId LEFT JOIN `plate` ON comment.plateId = plate.id LEFT JOIN `user` ON comment.userId = user.id WHERE comment.plateId = ? GROUP BY comment.id';
     return db.execute(sql, [plateId]);
   }
 
   static getPlateCommentsByText(plateText) {
     let sql =
-      'SELECT c.id, c.plateId, c.date, u.nick, p.plateText, c.votes, c.opinionId FROM comment c, user u, plate p WHERE c.userId = u.id AND c.plateId = p.id AND p.plateText LIKE ?';
+      'SELECT comment.id, comment.userId, comment.plateId, comment.commentMsg, comment.date, comment.opinionId, user.nick, plate.plateText, COALESCE(sum(user_comment_vote.vote),0) AS votes FROM `comment` LEFT JOIN `user_comment_vote` ON comment.id=user_comment_vote.commentId LEFT JOIN `plate` ON comment.plateId = plate.id LEFT JOIN `user` ON comment.userId = user.id WHERE plate.plateText LIKE ? GROUP BY comment.id';
     return db.execute(sql, [`${plateText}%`]);
+  }
+
+  static addCommentRating(userId, commentId, vote) {
+    let sql =
+      'INSERT INTO user_comment_vote(userId, commentId, vote) VALUES (?,?,?)';
+
+    return db.execute(sql, [userId, commentId, vote]);
   }
 }
 
