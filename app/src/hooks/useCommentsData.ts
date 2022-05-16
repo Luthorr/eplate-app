@@ -1,13 +1,20 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query';
-import { getComments, rateComment } from 'api/commentsApi';
+import {
+  getComments,
+  getSinglePlateComments,
+  rateComment,
+} from 'api/commentsApi';
 import { CommentType } from 'shared/interfaces/Comment.types';
 
 export const useCommentsData = () => useQuery('comments', getComments);
 
+export const useCommentData = (id: string | number) =>
+  useQuery(['comment', id], () => getSinglePlateComments(id));
+
 export const useAddCommentRating = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(rateComment, {
+  const { mutate: commentRatingMutation } = useMutation(rateComment, {
     onMutate: async (ratedComment) => {
       await queryClient.cancelQueries('comments');
       const previousComments =
@@ -25,12 +32,12 @@ export const useAddCommentRating = () => {
       return { previousComments };
     },
     onError: (error, ratedComment, context: any) => {
-      if (typeof context === 'object') {
-        queryClient.setQueryData('comments', context?.previousComments);
-      }
+      queryClient.setQueryData('comments', context?.previousComments);
     },
     onSettled: () => {
       queryClient.invalidateQueries('comments');
     },
   });
+
+  return { commentRatingMutation };
 };

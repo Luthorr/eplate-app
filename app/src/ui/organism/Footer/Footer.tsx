@@ -9,7 +9,7 @@ const Footer = () => {
   }
   return (
     <footer className={classnames('py-3 text-center', styles.footer)}>
-      <p>
+      <p className='py-0 my-0'>
         <span>&copy; </span>
         Przemysław Stupak, 2022
       </p>

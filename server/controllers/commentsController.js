@@ -21,6 +21,10 @@ const formatCommentsArray = (arr) =>
     votes: parseInt(curComment.votes),
   }));
 
+// const formatSinglePlateComents = (arr) => {
+//   arr.forEach((item) => delete item.plateText);
+// };
+
 export const getComments = async (req, res, next) => {
   try {
     const [result, _] = await Comment.getAll();
@@ -36,6 +40,8 @@ export const getSpecificPlateComments = async (req, res, next) => {
   try {
     const { id } = req.params;
     const [result, _] = await Comment.getSpecificPlateComments(id);
+    // const plateText = result[0]?.plateText;
+    // formatSinglePlateComents(result);
     res.status(200).json(formatCommentsArray(result));
   } catch (error) {
     console.log(error);

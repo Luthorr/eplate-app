@@ -41,7 +41,7 @@ const Comment = ({
           <p className='mt-1 mb-2 text-muted'>
             Wystawiono dla:
             <span className='fw-bold'>
-              <Link to={`/details/${plateId}`}>{` ${plateText}`}</Link>
+              <Link to={`/comment/${plateId}`}>{` ${plateText}`}</Link>
             </span>
           </p>
           <p>{commentMsg}</p>

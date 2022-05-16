@@ -1,0 +1,17 @@
+.positive {
+  color: var(--color-green);
+}
+
+.negative {
+  color: var(--color-red);
+}
+
+.positiveImg {
+  filter: invert(43%) sepia(95%) saturate(1147%) hue-rotate(85deg)
+    brightness(105%) contrast(108%);
+}
+
+.negativeImg {
+  filter: invert(11%) sepia(75%) saturate(6597%) hue-rotate(360deg)
+    brightness(97%) contrast(115%);
+}

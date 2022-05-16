@@ -7,6 +7,13 @@ export const getComments = async (): Promise<CommentType[]> => {
   return data;
 };
 
+export const getSinglePlateComments = async (
+  id: string | number,
+): Promise<CommentType[]> => {
+  const { data } = await api.get(`/comments/plate/${id}`);
+  return data;
+};
+
 export const rateComment = async (newRating: {
   userId: number;
   commentId: number;
