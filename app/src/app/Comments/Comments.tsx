@@ -7,33 +7,13 @@ import BubbleDiv from 'ui/atoms/BubbleDiv/BubbleDiv';
 import classnames from 'classnames';
 import SearchBar from 'ui/molecules/SearchBar/SearchBar';
 import filterIcon from 'ui/assets/icons/filter.svg';
-import CommentsList from 'ui/organism/CommentsList/CommentsList';
 import useComments from 'hooks/useComments';
 
-import { useAddCommentRating, useCommentsData } from 'hooks/useCommentsData';
-import LoadingProcess from 'ui/organism/LoadingProcess/LoadingProcess';
-import SiteError from 'ui/organism/SiteError/SiteError';
-
 import styles from './Comments.module.css';
+import CommentsContainer from './Comments.container';
 
 const Comments = () => {
   const { showFilters, handleFilterVisibility } = useComments();
-
-  const { data, isLoading, isError, isIdle } = useCommentsData();
-  const { commentRatingMutation } = useAddCommentRating();
-
-  if (isLoading || isIdle) {
-    return <LoadingProcess />;
-  }
-
-  if (isError) {
-    return <SiteError />;
-  }
-
-  const handleCommentRating = (commentId: number, vote: number): void => {
-    const userId = 1; // in the future obtained from the context api
-    commentRatingMutation({ userId, commentId, vote });
-  };
 
   return (
     <Container fluid className='px-0'>
@@ -93,10 +73,7 @@ const Comments = () => {
             </Col>
           </Row>
           <Row>
-            <CommentsList
-              data={data}
-              handleCommentRating={handleCommentRating}
-            />
+            <CommentsContainer />
           </Row>
           <Row>
             <Col className='d-flex justify-content-center py-3 pb-4'>

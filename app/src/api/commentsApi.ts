@@ -9,7 +9,10 @@ export const getComments = async (): Promise<CommentType[]> => {
 
 export const getSinglePlateComments = async (
   id: string | number,
-): Promise<CommentType[]> => {
+): Promise<{
+  data: CommentType[];
+  statistics: { plateText: string; positive: number; negative: number };
+}> => {
   const { data } = await api.get(`/comments/plate/${id}`);
   return data;
 };
