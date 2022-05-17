@@ -26,6 +26,8 @@ const CommentDetails = () => {
     commentRatingMutation({ userId, commentId, vote });
   };
 
+  console.log(data);
+
   return (
     <Container fluid className={styles.bgGray}>
       <Container className='py-5'>

@@ -54,11 +54,13 @@ export const getSpecificPlateComments = async (req, res, next) => {
       res.status(404).send('Błąd podczas pobierania danych.');
     }
 
+    console.log(opinions);
+
     const statistics = {
       ...opinions[0],
       positive: comments.length - opinions[0].negative,
     };
-    // console.log(statistics);
+    console.log(statistics);
 
     res.status(200).json({ data: formatCommentsArray(comments), statistics });
   } catch (error) {
