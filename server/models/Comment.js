@@ -41,7 +41,7 @@ class Comment {
 
   static countNegativeOpinions(plateId) {
     let sql =
-      'SELECT p.plateText, COUNT(c.opinionId) AS negative FROM comment c, plate p WHERE c.plateId = p.id AND c.opinionId = ?';
+      'SELECT p.plateText, COUNT(c.opinionId) AS negative FROM comment c, plate p WHERE c.plateId = p.id AND c.opinionId = 1 AND p.id = ?';
     return db.execute(sql, [plateId]);
   }
 
