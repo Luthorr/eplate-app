@@ -39,6 +39,12 @@ class Comment {
     return db.execute(sql, [plateId]);
   }
 
+  static countNegativeOpinions(plateId) {
+    let sql =
+      'SELECT p.plateText, COUNT(c.opinionId) AS negative FROM comment c, plate p WHERE c.plateId = p.id AND c.opinionId = ?';
+    return db.execute(sql, [plateId]);
+  }
+
   static getPlateCommentsByText(plateText) {
     let sql =
       'SELECT comment.id, comment.userId, comment.plateId, comment.commentMsg, comment.date, comment.opinionId, user.nick, plate.plateText, COALESCE(sum(user_comment_vote.vote),0) AS votes FROM `comment` LEFT JOIN `user_comment_vote` ON comment.id=user_comment_vote.commentId LEFT JOIN `plate` ON comment.plateId = plate.id LEFT JOIN `user` ON comment.userId = user.id WHERE plate.plateText LIKE ? GROUP BY comment.id';

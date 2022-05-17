@@ -39,10 +39,28 @@ export const getComments = async (req, res, next) => {
 export const getSpecificPlateComments = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const [result, _] = await Comment.getSpecificPlateComments(id);
-    // const plateText = result[0]?.plateText;
-    // formatSinglePlateComents(result);
-    res.status(200).json(formatCommentsArray(result));
+
+    let [opinions, comments] = await Promise.all([
+      Comment.countNegativeOpinions(id),
+      Comment.getSpecificPlateComments(id),
+    ]);
+
+    let helper;
+
+    [opinions, helper] = opinions;
+    [comments, helper] = comments;
+
+    if (!opinions[0]?.plateText) {
+      res.status(404).send('Błąd podczas pobierania danych.');
+    }
+
+    const statistics = {
+      ...opinions[0],
+      positive: comments.length - opinions[0].negative,
+    };
+    // console.log(statistics);
+
+    res.status(200).json({ data: formatCommentsArray(comments), statistics });
   } catch (error) {
     console.log(error);
     next(error);
