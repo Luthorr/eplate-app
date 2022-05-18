@@ -54,13 +54,10 @@ export const getSpecificPlateComments = async (req, res, next) => {
       res.status(404).send('Błąd podczas pobierania danych.');
     }
 
-    console.log(opinions);
-
     const statistics = {
       ...opinions[0],
       positive: comments.length - opinions[0].negative,
     };
-    console.log(statistics);
 
     res.status(200).json({ data: formatCommentsArray(comments), statistics });
   } catch (error) {
@@ -86,7 +83,7 @@ export const createComment = async (req, res, next) => {
     const plateTextToUpper = plateText.toUpperCase();
 
     let [plateId, _] = await Plate.getPlateId(plateTextToUpper);
-    plateId = plateId[0].id || null;
+    plateId = plateId[0]?.id || null;
 
     if (!plateId) {
       let newPlate = new Plate(plateTextToUpper);
