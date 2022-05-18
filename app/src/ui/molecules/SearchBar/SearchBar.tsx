@@ -7,7 +7,12 @@ const SearchBar = () => (
     style={{ columnGap: '1.2rem' }}
   >
     <div className='searchBar__inputContainer py-2'>
-      <Input value='text' onChange={() => {}} />
+      <Input
+        placehorder='Wyszukaj po numerze tablicy...'
+        type='text'
+        value=''
+        onChange={() => {}}
+      />
     </div>
     <div className='searchBar__buttonContainer py-1'>
       <CustomButton variant='primary'>Wyszukaj</CustomButton>

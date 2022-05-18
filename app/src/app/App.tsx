@@ -3,6 +3,8 @@ import Footer from 'ui/organism/Footer/Footer';
 import Navigation from 'ui/organism/Navigation/Navigation';
 import './App.css';
 
+import { ReactQueryDevtools } from 'react-query/devtools';
+
 const App = () => (
   <>
     <Navigation />
@@ -10,6 +12,7 @@ const App = () => (
       <AppRoutes />
     </main>
     <Footer />
+    <ReactQueryDevtools />
   </>
 );
 

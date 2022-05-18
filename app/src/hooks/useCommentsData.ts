@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from 'react-query';
 import {
   getComments,
   getSinglePlateComments,
+  postComment,
   rateComment,
 } from 'api/commentsApi';
 import { CommentType } from 'shared/interfaces/Comment.types';
@@ -40,4 +41,34 @@ export const useAddCommentRating = () => {
   });
 
   return { commentRatingMutation };
+};
+
+export const useAddComment = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate: commentPostMutation } = useMutation(postComment, {
+    onMutate: async (postedComment) => {
+      await queryClient.cancelQueries(['comment', 1]);
+      const previousComments = queryClient.getQueryData<any>(['comment', '1']);
+
+      // console.log('PREV COMMENTS', previousComments);
+      // console.log('POSTED COMM', postedComment);
+
+      if (previousComments) {
+        queryClient.setQueryData<CommentType[]>('comments', [
+          ...previousComments.data,
+        ]);
+      }
+
+      return { previousComments };
+    },
+    onError: (error, postedComment, context: any) => {
+      queryClient.setQueryData('comments', context?.previousComments);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries('comments');
+    },
+  });
+
+  return { commentPostMutation };
 };

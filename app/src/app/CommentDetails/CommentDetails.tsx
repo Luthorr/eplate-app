@@ -1,6 +1,10 @@
+import BUTTON_VARIANTS from 'constants/Button';
 import { useAddCommentRating, useCommentData } from 'hooks/useCommentsData';
+import useModal from 'hooks/useModal';
 import { Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import CustomButton from 'ui/atoms/Button/Button';
+import CommentCreationModal from 'ui/organism/CommentCreationModal/CommentCreationModal';
 import CommentsList from 'ui/organism/CommentsList/CommentsList';
 import LoadingProcess from 'ui/organism/LoadingProcess/LoadingProcess';
 import SiteError from 'ui/organism/SiteError/SiteError';
@@ -12,6 +16,7 @@ const CommentDetails = () => {
   const { id: paramId } = useParams();
   const { data, isLoading, isError, isIdle } = useCommentData(paramId || 0);
   const { commentRatingMutation } = useAddCommentRating();
+  const { isOpen, handleCloseModal, handleOpenModal } = useModal();
 
   if (isLoading || isIdle) {
     return <LoadingProcess />;
@@ -26,8 +31,6 @@ const CommentDetails = () => {
     commentRatingMutation({ userId, commentId, vote });
   };
 
-  console.log(data);
-
   return (
     <Container fluid className={styles.bgGray}>
       <Container className='py-5'>
@@ -39,7 +42,15 @@ const CommentDetails = () => {
           />
         </Row>
         <Row>
-          <h4 className='px-0'>Komentarze</h4>
+          <div className='d-flex justify-content-between align-items-center'>
+            <h4 className='px-0'>Komentarze</h4>
+            <CustomButton
+              variant={BUTTON_VARIANTS.PRIMARY}
+              handleClick={handleOpenModal}
+            >
+              Napisz komentarz
+            </CustomButton>
+          </div>
         </Row>
         <Row>
           <CommentsList
@@ -48,6 +59,7 @@ const CommentDetails = () => {
           />
         </Row>
       </Container>
+      <CommentCreationModal isOpen={isOpen} handleClose={handleCloseModal} />
     </Container>
   );
 };

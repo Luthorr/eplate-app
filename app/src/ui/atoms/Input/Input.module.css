@@ -1,6 +1,7 @@
 @value v-border-radius from 'ui/assets/styles/variables.module.css';
 
-.input {
+.input,
+.textarea {
   border-radius: v-border-radius;
   height: 42px;
   padding: 0 1.5rem;
@@ -8,9 +9,15 @@
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   outline: 0;
-  color: var(--color-gray--darker);
+  color: var(--color-black);
 }
 
-.input:focus {
+.input:focus,
+.textarea:focus {
   border: 2px solid var(--outline);
+}
+
+.textarea {
+  min-height: 150px;
+  padding-top: 0.5rem;
 }

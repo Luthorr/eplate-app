@@ -2,7 +2,7 @@ import React from 'react';
 import { InputProps } from './Input.types';
 import styles from './Input.module.css';
 
-const Input = ({ value, onChange }: InputProps) => {
+const Input = ({ value, placehorder, onChange }: InputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { target } = e;
     onChange(target.value);
@@ -11,7 +11,7 @@ const Input = ({ value, onChange }: InputProps) => {
     <input
       type='text'
       value={value}
-      placeholder='Wyszukaj...'
+      placeholder={placehorder}
       onChange={handleChange}
       className={styles.input}
     />

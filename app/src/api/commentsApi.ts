@@ -1,6 +1,9 @@
 /* eslint-disable implicit-arrow-linebreak */
+import useDate from 'hooks/useDate';
 import { CommentType } from 'shared/interfaces/Comment.types';
 import api from './base';
+
+const { getCurrentDate } = useDate();
 
 export const getComments = async (): Promise<CommentType[]> => {
   const { data } = await api.get('/comments');
@@ -23,6 +26,15 @@ export const rateComment = async (newRating: {
   vote: number;
 }): Promise<{ status: number }> => api.post('/comments/rate', newRating);
 
-export const postComment = async () => {};
+export const postComment = async (newComment: {
+  userId: number;
+  plateText: string;
+  commentMsg: string;
+  opinionId: number;
+}) => {
+  const date = getCurrentDate();
+  const commentToPost = { ...newComment, date };
+  api.post('/comments', commentToPost);
+};
 
 export const deleteComment = async () => {};

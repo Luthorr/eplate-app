@@ -22,8 +22,18 @@ const Login = () => (
       <div>
         <h3 className='pb-4 text-center display-6'>Witaj!</h3>
         <Form className='d-flex flex-column'>
-          <Input value='213' onChange={() => {}} />
-          <Input value='213' onChange={() => {}} />
+          <Input
+            placehorder='Wpisz login'
+            type='text'
+            value=''
+            onChange={() => {}}
+          />
+          <Input
+            placehorder='Wpisz hasło'
+            type='password'
+            value=''
+            onChange={() => {}}
+          />
           <Form.Group className='mb-3' controlId='formBasicCheckbox'>
             <Form.Check type='checkbox' label='Zapamiętaj mnie' />
           </Form.Group>

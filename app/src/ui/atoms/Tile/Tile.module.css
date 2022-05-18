@@ -4,18 +4,23 @@
   padding: 2rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   transition: all 0.25s ease-in-out;
+  cursor: pointer;
+  background-color: white;
+}
+
+.greenTileClicked {
+}
+
+.redTileClicked {
 }
 
 .redTile {
   border: 3px solid var(--color-red);
 }
 
-.greenTile {
-  border: 3px solid var(--color-green);
-}
-
-.greenTile:hover {
-  background-color: var(--color-green);
+.redTile:hover,
+.redTileClicked {
+  background-color: var(--color-red);
 }
 
 .redTile img {
@@ -23,23 +28,24 @@
     brightness(87%) contrast(120%);
 }
 
+.greenTile {
+  border: 3px solid var(--color-green);
+}
+
+.greenTile:hover,
+.greenTileClicked {
+  background-color: var(--color-green);
+}
+
 .greenTile img {
   filter: invert(66%) sepia(51%) saturate(6011%) hue-rotate(83deg)
     brightness(102%) contrast(112%);
-  transition: all 0.2s ease-in-out;
-}
-
-.greenTile img:hover {
-  filter: invert(66%) sepia(51%) saturate(6011%) hue-rotate(83deg)
-    brightness(102%) contrast(112%);
-}
-
-.redTile:hover {
-  background-color: var(--color-red);
 }
 
 .redTile:hover img,
-.greenTile:hover img {
+.greenTile:hover img,
+.greenTileClicked img,
+.redTileClicked img {
   filter: invert(95%) sepia(90%) saturate(40%) hue-rotate(73deg)
     brightness(107%) contrast(100%);
 }
