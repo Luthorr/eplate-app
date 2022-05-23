@@ -54,7 +54,7 @@ const CommentCreationModal = ({
               <label>
                 <Tile
                   img={goodMood}
-                  variant='green'
+                  variant={TILE_VARIANTS.GREEN}
                   handleClick={handleOpinionChange(1)}
                   currentId={opinionId}
                 />
@@ -62,7 +62,7 @@ const CommentCreationModal = ({
               <label>
                 <Tile
                   img={badMood}
-                  variant='red'
+                  variant={TILE_VARIANTS.RED}
                   handleClick={handleOpinionChange(2)}
                   currentId={opinionId}
                 />

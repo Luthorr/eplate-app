@@ -1,6 +1,6 @@
 export type TileProps = {
   img: string;
-  variant: 'green' | 'red';
+  variant: string;
   handleClick: () => void;
   currentId?: number;
 };

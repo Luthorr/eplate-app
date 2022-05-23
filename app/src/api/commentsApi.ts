@@ -1,6 +1,9 @@
 /* eslint-disable implicit-arrow-linebreak */
 import useDate from 'hooks/useDate';
-import { CommentType } from 'shared/interfaces/Comment.types';
+import {
+  CommentDetailsType,
+  CommentType,
+} from 'shared/interfaces/Comment.types';
 import api from './base';
 
 const { getCurrentDate } = useDate();
@@ -12,10 +15,7 @@ export const getComments = async (): Promise<CommentType[]> => {
 
 export const getSinglePlateComments = async (
   id: string | number,
-): Promise<{
-  data: CommentType[];
-  statistics: { plateText: string; positive: number; negative: number };
-}> => {
+): Promise<CommentDetailsType> => {
   const { data } = await api.get(`/comments/plate/${id}`);
   return data;
 };

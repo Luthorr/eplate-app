@@ -1,5 +1,8 @@
 import BUTTON_VARIANTS from 'constants/Button';
-import { useAddCommentRating, useCommentData } from 'hooks/useCommentsData';
+import {
+  useAddCommentDetailsRating,
+  useCommentData,
+} from 'hooks/useCommentsData';
 import useModal from 'hooks/useModal';
 import { Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
@@ -14,8 +17,8 @@ import styles from './CommentDetails.module.css';
 
 const CommentDetails = () => {
   const { id: paramId } = useParams();
-  const { data, isLoading, isError, isIdle } = useCommentData(paramId || 0);
-  const { commentRatingMutation } = useAddCommentRating();
+  const { data, isLoading, isError, isIdle } = useCommentData(paramId || '0');
+  const { commentRatingMutation } = useAddCommentDetailsRating(paramId || '0');
   const { isOpen, handleCloseModal, handleOpenModal } = useModal();
 
   if (isLoading || isIdle) {

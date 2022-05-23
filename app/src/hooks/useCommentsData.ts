@@ -5,11 +5,14 @@ import {
   postComment,
   rateComment,
 } from 'api/commentsApi';
-import { CommentType } from 'shared/interfaces/Comment.types';
+import {
+  CommentDetailsType,
+  CommentType,
+} from 'shared/interfaces/Comment.types';
 
 export const useCommentsData = () => useQuery('comments', getComments);
 
-export const useCommentData = (id: string | number) =>
+export const useCommentData = (id: string) =>
   useQuery(['comment', id], () => getSinglePlateComments(id));
 
 export const useAddCommentRating = () => {
@@ -71,4 +74,40 @@ export const useAddComment = () => {
   });
 
   return { commentPostMutation };
+};
+
+// TEST
+
+export const useAddCommentDetailsRating = (id: string) => {
+  const queryClient = useQueryClient();
+
+  const { mutate: commentRatingMutation } = useMutation(rateComment, {
+    onMutate: async (ratedComment) => {
+      await queryClient.cancelQueries(['comment', id]);
+      const previousComments = queryClient.getQueryData<CommentDetailsType>([
+        'comment',
+        id,
+      ]);
+
+      if (previousComments) {
+        queryClient.setQueryData<CommentDetailsType>(['comment', id], () => ({
+          ...previousComments,
+          data: previousComments.data.map((comm) =>
+            comm.id === ratedComment.commentId
+              ? { ...comm, votes: comm.votes + ratedComment.vote }
+              : comm,
+          ),
+        }));
+      }
+      return { previousComments };
+    },
+    onError: (error, ratedComment, context: any) => {
+      queryClient.setQueryData(['comment', '1'], context?.previousComments);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['comment', '1']);
+    },
+  });
+
+  return { commentRatingMutation };
 };

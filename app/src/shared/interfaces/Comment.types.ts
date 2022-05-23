@@ -11,3 +11,8 @@ export type CommentType = {
 export type CommentProps = CommentType & {
   handleCommentRating: (commentId: number, vote: number) => void;
 };
+
+export type CommentDetailsType = {
+  data: CommentType[];
+  statistics: { plateText: string; positive: number; negative: number };
+};
