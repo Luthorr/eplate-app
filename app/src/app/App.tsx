@@ -12,6 +12,7 @@ const App = () => (
       <AppRoutes />
     </main>
     <Footer />
+    <div id='modalContainer' />
     <ReactQueryDevtools />
   </>
 );

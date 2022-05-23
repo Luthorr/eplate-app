@@ -1,7 +1,7 @@
 export type CommentType = {
   id: number;
   nick: string;
-  avatar: string;
+  avatar: string | null;
   votes: number;
   date: string;
   plateText: string;

@@ -31,10 +31,9 @@ export const postComment = async (newComment: {
   plateText: string;
   commentMsg: string;
   opinionId: number;
+  date: string;
 }) => {
-  const date = getCurrentDate();
-  const commentToPost = { ...newComment, date };
-  api.post('/comments', commentToPost);
+  api.post('/comments', newComment);
 };
 
 export const deleteComment = async () => {};

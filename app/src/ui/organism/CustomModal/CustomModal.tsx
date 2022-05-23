@@ -10,7 +10,7 @@ type CustomModalProps = {
 
 const CustomModal = ({ isOpen, handleClose, children }: CustomModalProps) => (
   <Modal
-    appElement={document.getElementById('root') || undefined}
+    appElement={document.getElementById('modalContainer') || undefined}
     isOpen={isOpen}
     onRequestClose={handleClose}
     className={styles.ModalWrapper}

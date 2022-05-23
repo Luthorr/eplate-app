@@ -62,7 +62,12 @@ const CommentDetails = () => {
           />
         </Row>
       </Container>
-      <CommentCreationModal isOpen={isOpen} handleClose={handleCloseModal} />
+      <CommentCreationModal
+        isOpen={isOpen}
+        handleClose={handleCloseModal}
+        passedPlateId={paramId || ''}
+        passedPlateText={data.statistics.plateText}
+      />
     </Container>
   );
 };

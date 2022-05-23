@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react';
+import useDate from 'hooks/useDate';
 
 import CustomButton from 'ui/atoms/Button/Button';
 import BUTTON_VARIANTS from 'constants/Button';
@@ -10,22 +11,28 @@ import Tile from 'ui/atoms/Tile/Tile';
 import TILE_VARIANTS from 'constants/Tile';
 import Textarea from 'ui/atoms/Input/Textarea';
 import Label from 'ui/atoms/Label/Label';
-import { useAddComment } from 'hooks/useCommentsData';
+import { useAddCommentDetailsPage } from 'hooks/useCommentsData';
+import Opinion from 'constants/Opinion';
 import CustomModal from '../CustomModal/CustomModal';
 import styles from './CommentCreationModal.module.css';
 
 type CommentCreationModalProps = {
   isOpen: boolean;
   handleClose: () => void;
+  passedPlateId: string;
+  passedPlateText: string;
 };
 
 const CommentCreationModal = ({
   isOpen,
   handleClose,
+  passedPlateId,
+  passedPlateText,
 }: CommentCreationModalProps) => {
   const [opinionId, setOpinionId] = useState(0);
-  const [plateText, setPlateText] = useState('');
+  const [plateText, setPlateText] = useState(passedPlateText);
   const [commentMsg, setCommentMsg] = useState('');
+  const { getCurrentDate } = useDate();
 
   const handleOpinionChange = (id: number) => () => setOpinionId(id);
   const handleTextInput = (value: string) => {
@@ -36,11 +43,18 @@ const CommentCreationModal = ({
     setCommentMsg(value);
   };
 
-  const { commentPostMutation } = useAddComment();
+  const { commentPostMutation } = useAddCommentDetailsPage(passedPlateId);
+  const { commentPostMutation: commentPostDefault } =
+    useAddCommentDetailsPage(passedPlateId);
 
   const handleCommentAddition = () => {
     const userId = 1;
-    commentPostMutation({ userId, plateText, commentMsg, opinionId });
+    const date = getCurrentDate();
+    if (passedPlateId) {
+      commentPostMutation({ userId, plateText, commentMsg, opinionId, date });
+    } else {
+      commentPostDefault({ userId, plateText, commentMsg, opinionId, date });
+    }
   };
 
   return (
@@ -55,7 +69,7 @@ const CommentCreationModal = ({
                 <Tile
                   img={goodMood}
                   variant={TILE_VARIANTS.GREEN}
-                  handleClick={handleOpinionChange(1)}
+                  handleClick={handleOpinionChange(Opinion.Positive)}
                   currentId={opinionId}
                 />
               </label>
@@ -63,7 +77,7 @@ const CommentCreationModal = ({
                 <Tile
                   img={badMood}
                   variant={TILE_VARIANTS.RED}
-                  handleClick={handleOpinionChange(2)}
+                  handleClick={handleOpinionChange(Opinion.Negative)}
                   currentId={opinionId}
                 />
               </label>
@@ -77,6 +91,7 @@ const CommentCreationModal = ({
             placehorder='Wprowadź numer tablicy rejestracyjnej'
             value={plateText}
             onChange={handleTextInput}
+            disabled={!!passedPlateText}
           />
         </Label>
         <Label>

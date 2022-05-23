@@ -9,11 +9,12 @@ import {
   CommentDetailsType,
   CommentType,
 } from 'shared/interfaces/Comment.types';
+import Opinion from 'constants/Opinion';
 
 export const useCommentsData = () => useQuery('comments', getComments);
 
 export const useCommentData = (id: string) =>
-  useQuery(['comment', id], () => getSinglePlateComments(id));
+  useQuery(['comments', id], () => getSinglePlateComments(id));
 
 export const useAddCommentRating = () => {
   const queryClient = useQueryClient();
@@ -46,51 +47,76 @@ export const useAddCommentRating = () => {
   return { commentRatingMutation };
 };
 
-export const useAddComment = () => {
+export const useAddCommentDetailsPage = (id: string) => {
   const queryClient = useQueryClient();
 
   const { mutate: commentPostMutation } = useMutation(postComment, {
     onMutate: async (postedComment) => {
-      await queryClient.cancelQueries(['comment', 1]);
-      const previousComments = queryClient.getQueryData<any>(['comment', '1']);
-
-      // console.log('PREV COMMENTS', previousComments);
-      // console.log('POSTED COMM', postedComment);
+      await queryClient.cancelQueries(['comments', id]);
+      const previousComments = queryClient.getQueryData<CommentDetailsType>([
+        'comments',
+        id,
+      ]);
 
       if (previousComments) {
-        queryClient.setQueryData<CommentType[]>('comments', [
-          ...previousComments.data,
-        ]);
+        const objectToSet = {
+          ...previousComments,
+          statistics: {
+            ...previousComments.statistics,
+            negative:
+              postedComment.opinionId === Opinion.Negative
+                ? previousComments.statistics.negative + 1
+                : previousComments.statistics.negative,
+            positive:
+              postedComment.opinionId === Opinion.Positive
+                ? previousComments.statistics.positive + 1
+                : previousComments.statistics.positive,
+          },
+          data: [
+            {
+              ...postedComment,
+              id: 122931,
+              nick: 'user',
+              avatar: null,
+              votes: 0,
+              plateId: parseInt(id, 10),
+            },
+            ...previousComments.data,
+          ],
+        };
+
+        queryClient.setQueryData<CommentDetailsType>(
+          ['comments', id],
+          objectToSet,
+        );
       }
 
       return { previousComments };
     },
     onError: (error, postedComment, context: any) => {
-      queryClient.setQueryData('comments', context?.previousComments);
+      queryClient.setQueryData(['comments', id], context?.previousComments);
     },
     onSettled: () => {
-      queryClient.invalidateQueries('comments');
+      queryClient.invalidateQueries(['comments', id]);
     },
   });
 
   return { commentPostMutation };
 };
 
-// TEST
-
 export const useAddCommentDetailsRating = (id: string) => {
   const queryClient = useQueryClient();
 
   const { mutate: commentRatingMutation } = useMutation(rateComment, {
     onMutate: async (ratedComment) => {
-      await queryClient.cancelQueries(['comment', id]);
+      await queryClient.cancelQueries(['comments', id]);
       const previousComments = queryClient.getQueryData<CommentDetailsType>([
-        'comment',
+        'comments',
         id,
       ]);
 
       if (previousComments) {
-        queryClient.setQueryData<CommentDetailsType>(['comment', id], () => ({
+        queryClient.setQueryData<CommentDetailsType>(['comments', id], () => ({
           ...previousComments,
           data: previousComments.data.map((comm) =>
             comm.id === ratedComment.commentId
@@ -102,10 +128,10 @@ export const useAddCommentDetailsRating = (id: string) => {
       return { previousComments };
     },
     onError: (error, ratedComment, context: any) => {
-      queryClient.setQueryData(['comment', '1'], context?.previousComments);
+      queryClient.setQueryData(['comments', id], context?.previousComments);
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['comment', '1']);
+      queryClient.invalidateQueries(['comments']);
     },
   });
 
