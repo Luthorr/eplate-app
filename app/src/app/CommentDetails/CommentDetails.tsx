@@ -1,6 +1,7 @@
 import BUTTON_VARIANTS from 'constants/Button';
 import {
   useAddCommentDetailsRating,
+  useAddCommentDetailsPage,
   useCommentData,
 } from 'hooks/useCommentsData';
 import useModal from 'hooks/useModal';
@@ -17,6 +18,7 @@ import styles from './CommentDetails.module.css';
 
 const CommentDetails = () => {
   const { id: paramId } = useParams();
+  const { commentPostMutation } = useAddCommentDetailsPage(paramId || '0');
   const { data, isLoading, isError, isIdle } = useCommentData(paramId || '0');
   const { commentRatingMutation } = useAddCommentDetailsRating(paramId || '0');
   const { isOpen, handleCloseModal, handleOpenModal } = useModal();
@@ -65,7 +67,7 @@ const CommentDetails = () => {
       <CommentCreationModal
         isOpen={isOpen}
         handleClose={handleCloseModal}
-        passedPlateId={paramId || ''}
+        mutationFunction={commentPostMutation}
         passedPlateText={data.statistics.plateText}
       />
     </Container>

@@ -11,23 +11,34 @@ import Tile from 'ui/atoms/Tile/Tile';
 import TILE_VARIANTS from 'constants/Tile';
 import Textarea from 'ui/atoms/Input/Textarea';
 import Label from 'ui/atoms/Label/Label';
-import { useAddCommentDetailsPage } from 'hooks/useCommentsData';
 import Opinion from 'constants/Opinion';
+import { UseMutateFunction } from 'react-query/types/react/types';
 import CustomModal from '../CustomModal/CustomModal';
 import styles from './CommentCreationModal.module.css';
 
 type CommentCreationModalProps = {
   isOpen: boolean;
   handleClose: () => void;
-  passedPlateId: string;
   passedPlateText: string;
+  mutationFunction: UseMutateFunction<
+    any,
+    any,
+    {
+      userId: number;
+      plateText: string;
+      commentMsg: string;
+      opinionId: number;
+      date: string;
+    },
+    any
+  >;
 };
 
 const CommentCreationModal = ({
   isOpen,
   handleClose,
-  passedPlateId,
   passedPlateText,
+  mutationFunction,
 }: CommentCreationModalProps) => {
   const [opinionId, setOpinionId] = useState(0);
   const [plateText, setPlateText] = useState(passedPlateText);
@@ -43,18 +54,10 @@ const CommentCreationModal = ({
     setCommentMsg(value);
   };
 
-  const { commentPostMutation } = useAddCommentDetailsPage(passedPlateId);
-  const { commentPostMutation: commentPostDefault } =
-    useAddCommentDetailsPage(passedPlateId);
-
   const handleCommentAddition = () => {
     const userId = 1;
     const date = getCurrentDate();
-    if (passedPlateId) {
-      commentPostMutation({ userId, plateText, commentMsg, opinionId, date });
-    } else {
-      commentPostDefault({ userId, plateText, commentMsg, opinionId, date });
-    }
+    mutationFunction({ userId, plateText, commentMsg, opinionId, date });
   };
 
   return (
