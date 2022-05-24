@@ -107,3 +107,31 @@ export const addCommentRating = async (req, res, next) => {
     next(error);
   }
 };
+
+const createRanking = (arr) => {
+  const result = arr.reduce((acc, value) => {
+    let { MONTH, YEAR, COMMENTS_POSTED, n, ...rest } = value;
+    MONTH = MONTH.toString().padStart(2, '0');
+    if (!acc[`${YEAR}-${MONTH}`]) {
+      acc[`${YEAR}-${MONTH}`] = [];
+    }
+    acc[`${YEAR}-${MONTH}`].push(rest);
+    return acc;
+  }, {});
+  return result;
+};
+
+export const getDriversRanking = async (req, res, next) => {
+  try {
+    const [worstDrivers, _] = await Comment.getDriversRanking(1);
+    const [bestDrivers, __] = await Comment.getDriversRanking(2);
+    const worstDriversRanking = createRanking(worstDrivers);
+    const bestDriversRanking = createRanking(bestDrivers);
+    res
+      .status(200)
+      .send({ worst: worstDriversRanking, best: bestDriversRanking });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};

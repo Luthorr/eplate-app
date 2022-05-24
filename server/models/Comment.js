@@ -39,6 +39,12 @@ class Comment {
     return db.execute(sql, [plateId]);
   }
 
+  static getDriversRanking(opinionId) {
+    let sql =
+      'SELECT * FROM ( SELECT c.plateId, p.plateText, COUNT(c.plateId) AS COMMENTS_POSTED, MONTH(c.date) AS MONTH, YEAR(c.date) AS YEAR, ROW_NUMBER() OVER (PARTITION BY MONTH, YEAR) AS n FROM comment c, plate p WHERE c.plateId = p.id AND c.opinionId = ? GROUP BY c.plateId, MONTH, YEAR ORDER BY YEAR DESC, MONTH DESC) AS x WHERE n <= 10';
+    return db.execute(sql, [opinionId]);
+  }
+
   static countNegativeOpinions(plateId) {
     let sql =
       'SELECT p.plateText, COUNT(c.opinionId) AS negative FROM comment c, plate p WHERE c.plateId = p.id AND c.opinionId = 1 AND p.id = ?';
