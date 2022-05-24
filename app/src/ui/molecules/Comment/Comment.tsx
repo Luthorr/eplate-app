@@ -4,6 +4,10 @@ import avt from 'ui/assets/images/avatar.jpg';
 import Avatar from 'ui/atoms/Avatar/Avatar';
 import CommentRating from 'ui/atoms/CommentRating/CommentRating';
 import { CommentProps } from 'shared/interfaces/Comment.types';
+import Opinion from 'constants/Opinion';
+import Icon from 'ui/atoms/Icon/Icon';
+import goodMood from 'ui/assets/icons/moodGood.svg';
+import badMood from 'ui/assets/icons/moodBad.svg';
 import styles from './Comment.module.css';
 
 const Comment = ({
@@ -15,6 +19,7 @@ const Comment = ({
   plateText,
   plateId,
   commentMsg,
+  opinionId,
   handleCommentRating,
 }: CommentProps) => {
   const handleVote = (vote: number) => {
@@ -32,6 +37,13 @@ const Comment = ({
             {avatar ? <Avatar img={avatar} /> : <Avatar img={avt} />}
             <p className={classnames('ms-4', styles.nickname)}>{nick}</p>
             <p className='my-0 ms-4 text-muted'>{date}</p>
+            <div className='my-0 ms-3'>
+              {opinionId === Opinion.Negative ? (
+                <Icon imag={badMood} opinionId={opinionId} />
+              ) : (
+                <Icon imag={goodMood} opinionId={opinionId} />
+              )}
+            </div>
           </div>
           <div className='ms-auto ps-3 my-2'>
             <span>Zgłoś</span>

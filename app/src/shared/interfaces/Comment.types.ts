@@ -7,7 +7,9 @@ export type CommentType = {
   plateText: string;
   plateId: number;
   commentMsg: string;
+  opinionId: number;
 };
+
 export type CommentProps = CommentType & {
   handleCommentRating: (commentId: number, vote: number) => void;
 };

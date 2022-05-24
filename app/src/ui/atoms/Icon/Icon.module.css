@@ -1,0 +1,9 @@
+.paintGreen {
+  filter: invert(66%) sepia(51%) saturate(6011%) hue-rotate(83deg)
+    brightness(102%) contrast(112%);
+}
+
+.paintRed {
+  filter: invert(13%) sepia(80%) saturate(5215%) hue-rotate(358deg)
+    brightness(87%) contrast(120%);
+}
