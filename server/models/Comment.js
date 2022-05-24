@@ -35,7 +35,7 @@ class Comment {
 
   static getSpecificPlateComments(plateId) {
     let sql =
-      'SELECT comment.id, comment.userId, comment.plateId, comment.commentMsg, comment.date, comment.opinionId, user.nick, plate.plateText, COALESCE(sum(user_comment_vote.vote),0) AS votes FROM `comment` LEFT JOIN `user_comment_vote` ON comment.id=user_comment_vote.commentId LEFT JOIN `plate` ON comment.plateId = plate.id LEFT JOIN `user` ON comment.userId = user.id WHERE comment.plateId = ? GROUP BY comment.id';
+      'SELECT comment.id, comment.userId, comment.plateId, comment.commentMsg, comment.date, comment.opinionId, user.nick, plate.plateText, COALESCE(sum(user_comment_vote.vote),0) AS votes FROM `comment` LEFT JOIN `user_comment_vote` ON comment.id=user_comment_vote.commentId LEFT JOIN `plate` ON comment.plateId = plate.id LEFT JOIN `user` ON comment.userId = user.id WHERE comment.plateId = ? GROUP BY comment.id ORDER BY comment.date DESC';
     return db.execute(sql, [plateId]);
   }
 
@@ -47,7 +47,7 @@ class Comment {
 
   static getPlateCommentsByText(plateText) {
     let sql =
-      'SELECT comment.id, comment.userId, comment.plateId, comment.commentMsg, comment.date, comment.opinionId, user.nick, plate.plateText, COALESCE(sum(user_comment_vote.vote),0) AS votes FROM `comment` LEFT JOIN `user_comment_vote` ON comment.id=user_comment_vote.commentId LEFT JOIN `plate` ON comment.plateId = plate.id LEFT JOIN `user` ON comment.userId = user.id WHERE plate.plateText LIKE ? GROUP BY comment.id';
+      'SELECT comment.id, comment.userId, comment.plateId, comment.commentMsg, comment.date, comment.opinionId, user.nick, plate.plateText, COALESCE(sum(user_comment_vote.vote),0) AS votes FROM `comment` LEFT JOIN `user_comment_vote` ON comment.id=user_comment_vote.commentId LEFT JOIN `plate` ON comment.plateId = plate.id LEFT JOIN `user` ON comment.userId = user.id WHERE plate.plateText LIKE ? GROUP BY comment.id ORDER BY comment.date DESC';
     return db.execute(sql, [`${plateText}%`]);
   }
 
