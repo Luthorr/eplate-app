@@ -1,35 +1,17 @@
 import Comment from '../models/Comment.js';
 import Plate from '../models/Plate.js';
 
-// const formatArray = (arr) =>
-//   arr.map(
-//     ({ id, plateId, date, nick, avatar, plateText, votes, opinionId }) => {
-//       return {
-//         id,
-//         plate: { id: plateId, plateText },
-//         user: { nick, avatar },
-//         votes,
-//         date,
-//         opinionId,
-//       };
-//     }
-//   );
-
-const formatCommentsArray = (arr) =>
+const parseVotesInArray = (arr) =>
   arr.map((curComment) => ({
     ...curComment,
     votes: parseInt(curComment.votes),
   }));
 
-// const formatSinglePlateComents = (arr) => {
-//   arr.forEach((item) => delete item.plateText);
-// };
-
 export const getComments = async (req, res, next) => {
   try {
     const [result, _] = await Comment.getAll();
 
-    res.status(200).json(formatCommentsArray(result));
+    res.status(200).json(parseVotesInArray(result));
   } catch (error) {
     console.log(error);
     next(error);
@@ -59,7 +41,7 @@ export const getSpecificPlateComments = async (req, res, next) => {
       positive: comments.length - opinions[0].negative,
     };
 
-    res.status(200).json({ data: formatCommentsArray(comments), statistics });
+    res.status(200).json({ data: parseVotesInArray(comments), statistics });
   } catch (error) {
     console.log(error);
     next(error);
@@ -70,7 +52,7 @@ export const getPlateCommentsByText = async (req, res, next) => {
   try {
     const { searchTerm } = req.params;
     const [result, _] = await Comment.getPlateCommentsByText(searchTerm);
-    res.status(200).json(formatCommentsArray(result));
+    res.status(200).json(parseVotesInArray(result));
   } catch (error) {
     console.log(error);
     next(error);

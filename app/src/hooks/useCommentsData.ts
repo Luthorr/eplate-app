@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import {
   getComments,
+  getCommentsByValue,
   getSinglePlateComments,
   postComment,
   rateComment,
@@ -14,6 +15,9 @@ import { v4 as uuidv4 } from 'uuid';
 import Opinion from 'constants/Opinion';
 
 export const useCommentsData = () => useQuery('comments', getComments);
+
+export const useCommentsDataByValue = (value: string) =>
+  useQuery(['comments', value], () => getCommentsByValue(value));
 
 export const useCommentData = (id: string) =>
   useQuery(['comments', id], () => getSinglePlateComments(id));
@@ -173,7 +177,42 @@ export const useAddCommentDetailsRating = (id: string) => {
       queryClient.setQueryData(['comments', id], context?.previousComments);
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['comments']);
+      queryClient.invalidateQueries(['comments', id]);
+    },
+  });
+
+  return { commentRatingMutation };
+};
+
+export const useAddCommentSearchRating = (id: string) => {
+  const queryClient = useQueryClient();
+
+  const { mutate: commentRatingMutation } = useMutation(rateComment, {
+    onMutate: async (ratedComment) => {
+      await queryClient.cancelQueries(['comments', id]);
+      const previousComments = queryClient.getQueryData<CommentType[]>([
+        'comments',
+        id,
+      ]);
+
+      console.log(previousComments);
+
+      if (previousComments) {
+        queryClient.setQueryData<CommentType[]>(['comments', id], () =>
+          previousComments.map((currCom) =>
+            currCom.id === ratedComment.commentId
+              ? { ...currCom, votes: currCom.votes + ratedComment.vote }
+              : currCom,
+          ),
+        );
+      }
+      return { previousComments };
+    },
+    onError: (error, ratedComment, context: any) => {
+      queryClient.setQueryData(['comments', id], context?.previousComments);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['comments', id]);
     },
   });
 

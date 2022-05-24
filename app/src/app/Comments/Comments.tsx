@@ -15,7 +15,6 @@ import styles from './Comments.module.css';
 import CommentsContainer from './Comments.container';
 
 const Comments = () => {
-  const { showFilters, handleFilterVisibility } = useComments();
   const { commentPostMutation } = useAddComment();
 
   return (
@@ -34,41 +33,11 @@ const Comments = () => {
               <BubbleDiv>
                 <Row>
                   <Col className='d-flex justify-content-center align-items-center py-4'>
-                    <div className='me-3'>
-                      <button
-                        type='button'
-                        className={styles.filterButton}
-                        onClick={handleFilterVisibility}
-                      >
-                        <img
-                          src={filterIcon}
-                          width={45}
-                          height={45}
-                          alt='filter icon'
-                        />
-                      </button>
-                    </div>
                     <div className='home__bubbleDiv'>
                       <SearchBar />
                     </div>
                   </Col>
                 </Row>
-                {showFilters && (
-                  <Row>
-                    <Col className='d-flex justify-content-center align-items-center pb-4'>
-                      <Col md={3} className='text-white'>
-                        <div className='lead'>SORTUJ WEDŁUG</div>
-                        <div>DATA PRZESŁANIA</div>
-                        <div>XYZ</div>
-                      </Col>
-                      <Col md={3} className='text-white'>
-                        <div className='lead'>WYBIERZ WOJEWÓDZTWO</div>
-                        <div>XYZ</div>
-                        <div>XYZ</div>
-                      </Col>
-                    </Col>
-                  </Row>
-                )}
               </BubbleDiv>
             </Col>
             <Col md={12} className='px-0'>

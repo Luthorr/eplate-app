@@ -4,6 +4,7 @@ enum AppRoute {
   Comments = '/comments',
   CommentDetails = '/comment/:id',
   Ranking = '/ranking',
+  CommentSearch = '/comment/search/:param',
   NotExisting = '*',
 }
 

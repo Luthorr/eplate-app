@@ -1,12 +1,9 @@
 /* eslint-disable implicit-arrow-linebreak */
-import useDate from 'hooks/useDate';
 import {
   CommentDetailsType,
   CommentType,
 } from 'shared/interfaces/Comment.types';
 import api from './base';
-
-const { getCurrentDate } = useDate();
 
 export const getComments = async (): Promise<CommentType[]> => {
   const { data } = await api.get('/comments');
@@ -34,6 +31,13 @@ export const postComment = async (newComment: {
   date: string;
 }) => {
   api.post('/comments', newComment);
+};
+
+export const getCommentsByValue = async (
+  value: string,
+): Promise<CommentType[]> => {
+  const { data } = await api.get(`/comments/plate/term/${value}`);
+  return data;
 };
 
 export const deleteComment = async () => {};

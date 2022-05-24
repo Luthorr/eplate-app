@@ -38,11 +38,6 @@ const Navigation = () => {
                 Komentarze
               </StyledLink>
             </div>
-            <NavDropdown title='Województwa' id='navbarScrollingDropdown'>
-              <NavDropdown.Item>Podlaskie</NavDropdown.Item>
-              <NavDropdown.Item>Mazowieckie</NavDropdown.Item>
-              <NavDropdown.Item>ETC.</NavDropdown.Item>
-            </NavDropdown>
             <div className={styles.linkContainer}>
               <StyledLink destination={AppRoute.Ranking}>
                 Ranking kierowców
