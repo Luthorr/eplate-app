@@ -20,7 +20,7 @@ type CommentCreationModalProps = {
   isOpen: boolean;
   handleClose: () => void;
   passedPlateText: string;
-  mutationFunction: UseMutateFunction<
+  handlePostMutation: UseMutateFunction<
     any,
     any,
     {
@@ -38,7 +38,7 @@ const CommentCreationModal = ({
   isOpen,
   handleClose,
   passedPlateText,
-  mutationFunction,
+  handlePostMutation,
 }: CommentCreationModalProps) => {
   const [opinionId, setOpinionId] = useState(0);
   const [plateText, setPlateText] = useState(passedPlateText);
@@ -57,7 +57,7 @@ const CommentCreationModal = ({
   const handleCommentAddition = () => {
     const userId = 1;
     const date = getCurrentDate();
-    mutationFunction({ userId, plateText, commentMsg, opinionId, date });
+    handlePostMutation({ userId, plateText, commentMsg, opinionId, date });
   };
 
   return (

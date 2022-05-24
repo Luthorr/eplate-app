@@ -1,14 +1,12 @@
-import BUTTON_VARIANTS from 'constants/Button';
 import {
   useAddCommentDetailsRating,
   useAddCommentDetailsPage,
   useCommentData,
 } from 'hooks/useCommentsData';
-import useModal from 'hooks/useModal';
-import { Container, Row } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 import { useParams } from 'react-router-dom';
-import CustomButton from 'ui/atoms/Button/Button';
-import CommentCreationModal from 'ui/organism/CommentCreationModal/CommentCreationModal';
+import CommentHeadingRow from 'ui/molecules/CommentHeadingRow/CommentHeadingRow';
 import CommentsList from 'ui/organism/CommentsList/CommentsList';
 import LoadingProcess from 'ui/organism/LoadingProcess/LoadingProcess';
 import SiteError from 'ui/organism/SiteError/SiteError';
@@ -21,8 +19,6 @@ const CommentDetails = () => {
   const { commentPostMutation } = useAddCommentDetailsPage(paramId || '0');
   const { data, isLoading, isError, isIdle } = useCommentData(paramId || '0');
   const { commentRatingMutation } = useAddCommentDetailsRating(paramId || '0');
-  const { isOpen, handleCloseModal, handleOpenModal } = useModal();
-
   if (isLoading || isIdle) {
     return <LoadingProcess />;
   }
@@ -47,15 +43,10 @@ const CommentDetails = () => {
           />
         </Row>
         <Row>
-          <div className='d-flex justify-content-between align-items-center'>
-            <h4 className='px-0'>Komentarze</h4>
-            <CustomButton
-              variant={BUTTON_VARIANTS.PRIMARY}
-              handleClick={handleOpenModal}
-            >
-              Napisz komentarz
-            </CustomButton>
-          </div>
+          <CommentHeadingRow
+            plateText={data.statistics.plateText}
+            handlePostMutation={commentPostMutation}
+          />
         </Row>
         <Row>
           <CommentsList
@@ -64,12 +55,6 @@ const CommentDetails = () => {
           />
         </Row>
       </Container>
-      <CommentCreationModal
-        isOpen={isOpen}
-        handleClose={handleCloseModal}
-        mutationFunction={commentPostMutation}
-        passedPlateText={data.statistics.plateText}
-      />
     </Container>
   );
 };

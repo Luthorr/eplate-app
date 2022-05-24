@@ -9,6 +9,8 @@ import {
   CommentDetailsType,
   CommentType,
 } from 'shared/interfaces/Comment.types';
+import { v4 as uuidv4 } from 'uuid';
+
 import Opinion from 'constants/Opinion';
 
 export const useCommentsData = () => useQuery('comments', getComments);
@@ -45,6 +47,46 @@ export const useAddCommentRating = () => {
   });
 
   return { commentRatingMutation };
+};
+
+export const useAddComment = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate: commentPostMutation } = useMutation(postComment, {
+    onMutate: async (postedComment) => {
+      await queryClient.cancelQueries(['comments']);
+      const previousComments = queryClient.getQueryData<CommentType[]>([
+        'comments',
+      ]);
+
+      if (previousComments) {
+        queryClient.setQueryData<CommentType[]>(
+          ['comments'],
+          [
+            {
+              ...postedComment,
+              id: uuidv4(),
+              nick: 'user',
+              avatar: null,
+              votes: 0,
+              plateId: uuidv4(),
+            },
+            ...previousComments,
+          ],
+        );
+      }
+
+      return { previousComments };
+    },
+    onError: (error, postedComment, context: any) => {
+      queryClient.setQueryData(['comments'], context?.previousComments);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['comments']);
+    },
+  });
+
+  return { commentPostMutation };
 };
 
 export const useAddCommentDetailsPage = (id: string) => {

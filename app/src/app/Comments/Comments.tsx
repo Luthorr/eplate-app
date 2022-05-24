@@ -8,12 +8,15 @@ import classnames from 'classnames';
 import SearchBar from 'ui/molecules/SearchBar/SearchBar';
 import filterIcon from 'ui/assets/icons/filter.svg';
 import useComments from 'hooks/useComments';
+import CommentHeadingRow from 'ui/molecules/CommentHeadingRow/CommentHeadingRow';
+import { useAddComment } from 'hooks/useCommentsData';
 
 import styles from './Comments.module.css';
 import CommentsContainer from './Comments.container';
 
 const Comments = () => {
   const { showFilters, handleFilterVisibility } = useComments();
+  const { commentPostMutation } = useAddComment();
 
   return (
     <Container fluid className='px-0'>
@@ -69,7 +72,10 @@ const Comments = () => {
               </BubbleDiv>
             </Col>
             <Col md={12} className='px-0'>
-              <h4>Komentarze</h4>
+              <CommentHeadingRow
+                plateText=''
+                handlePostMutation={commentPostMutation}
+              />
             </Col>
           </Row>
           <Row>
