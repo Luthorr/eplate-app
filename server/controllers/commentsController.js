@@ -108,6 +108,24 @@ export const addCommentRating = async (req, res, next) => {
   }
 };
 
+export const getDriversRanking = async (req, res, next) => {
+  try {
+    const [worstDrivers, _] = await Comment.getDriversRanking(1);
+    const [bestDrivers, __] = await Comment.getDriversRanking(2);
+    const worstDriversRanking = createRanking(worstDrivers);
+    const bestDriversRanking = createRanking(bestDrivers);
+    const finalResult = concatRankingArrays(
+      worstDriversRanking,
+      bestDriversRanking
+    );
+    res.status(200).send(finalResult);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+//utworzenie obiektu zawierającego daty ROK-MIESIĄC jako klucze, a wartością przechowywaną jest tablica, zawierająca numery tablic i id tablicy.
 const createRanking = (arr) => {
   const result = arr.reduce((acc, value) => {
     let { MONTH, YEAR, COMMENTS_POSTED, n, ...rest } = value;
@@ -121,17 +139,20 @@ const createRanking = (arr) => {
   return result;
 };
 
-export const getDriversRanking = async (req, res, next) => {
-  try {
-    const [worstDrivers, _] = await Comment.getDriversRanking(1);
-    const [bestDrivers, __] = await Comment.getDriversRanking(2);
-    const worstDriversRanking = createRanking(worstDrivers);
-    const bestDriversRanking = createRanking(bestDrivers);
-    res
-      .status(200)
-      .send({ worst: worstDriversRanking, best: bestDriversRanking });
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
+//połączenie najgorszych i najlepszych kierowców w jeden obiekt. Połączenie dat.
+const concatRankingArrays = (worstRank, bestRank) => {
+  const result = {};
+  insertValuesIntoKeys(worstRank, 'worst', result);
+  insertValuesIntoKeys(bestRank, 'best', result);
+  console.log(result);
+  return result;
+};
+
+const insertValuesIntoKeys = (arr, secondKey, result) => {
+  Object.keys(arr).forEach((key) => {
+    if (!result[key]) {
+      result[key] = { best: [], worst: [] };
+    }
+    result[key][secondKey] = arr[key];
+  });
 };
