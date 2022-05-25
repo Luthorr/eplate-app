@@ -1,24 +1,8 @@
 import CommentCreationModal from 'ui/organism/CommentCreationModal/CommentCreationModal';
 import CustomButton from 'ui/atoms/Button/Button';
 import useModal from 'hooks/useModal';
-import { UseMutateFunction } from 'react-query/types/react/types';
 import BUTTON_VARIANTS from 'constants/Button';
-
-type CommentHeadingRowProps = {
-  plateText: string;
-  handlePostMutation: UseMutateFunction<
-    any,
-    any,
-    {
-      userId: number;
-      plateText: string;
-      commentMsg: string;
-      opinionId: number;
-      date: string;
-    },
-    any
-  >;
-};
+import { CommentHeadingRowProps } from './CommentHeadingRow.types';
 
 const CommentHeadingRow = ({
   plateText,

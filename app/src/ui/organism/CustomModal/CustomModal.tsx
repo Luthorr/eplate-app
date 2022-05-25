@@ -1,12 +1,6 @@
-import { ReactNode } from 'react';
 import Modal from 'react-modal';
+import { CustomModalProps } from './CustomModal.types';
 import styles from './CustomModal.module.css';
-
-type CustomModalProps = {
-  isOpen: boolean;
-  handleClose: () => void;
-  children: ReactNode;
-};
 
 const CustomModal = ({ isOpen, handleClose, children }: CustomModalProps) => (
   <Modal

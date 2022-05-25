@@ -1,6 +1,3 @@
-/* eslint-disable react/jsx-curly-newline */
-/* eslint-disable no-confusing-arrow */
-/* eslint-disable implicit-arrow-linebreak */
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import { StyledLinkProps } from './StyledLink.types';

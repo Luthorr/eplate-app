@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import ranking from 'ui/assets/images/ranking.svg';
 import SiteHeading from 'ui/atoms/SiteHeading/SiteHeading';
-import CustomTabs from 'ui/organism/CustomTabs/CustomTabs';
+import RankingContainer from './Ranking.container';
 
 const Ranking = () => (
   <Container className='pt-5'>
@@ -19,21 +19,7 @@ const Ranking = () => (
       </Col>
     </Row>
     <Row>
-      <Col xsm={12} md={6} lg={4}>
-        <CustomTabs />
-      </Col>
-      <Col xsm={12} md={6} lg={4}>
-        <CustomTabs />
-      </Col>
-      <Col xsm={12} md={6} lg={4}>
-        <CustomTabs />
-      </Col>
-      <Col xsm={12} md={6} lg={4}>
-        <CustomTabs />
-      </Col>
-      <Col xsm={12} md={6} lg={4}>
-        <CustomTabs />
-      </Col>
+      <RankingContainer />
     </Row>
   </Container>
 );

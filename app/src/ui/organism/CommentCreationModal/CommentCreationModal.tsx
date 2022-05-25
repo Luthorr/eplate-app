@@ -12,27 +12,9 @@ import TILE_VARIANTS from 'constants/Tile';
 import Textarea from 'ui/atoms/Input/Textarea';
 import Label from 'ui/atoms/Label/Label';
 import Opinion from 'constants/Opinion';
-import { UseMutateFunction } from 'react-query/types/react/types';
 import CustomModal from '../CustomModal/CustomModal';
 import styles from './CommentCreationModal.module.css';
-
-type CommentCreationModalProps = {
-  isOpen: boolean;
-  handleClose: () => void;
-  passedPlateText: string;
-  handlePostMutation: UseMutateFunction<
-    any,
-    any,
-    {
-      userId: number;
-      plateText: string;
-      commentMsg: string;
-      opinionId: number;
-      date: string;
-    },
-    any
-  >;
-};
+import { CommentCreationModalProps } from './CommentCreationModal.types';
 
 const CommentCreationModal = ({
   isOpen,

@@ -1,4 +1,4 @@
-import { CommentType } from 'shared/interfaces/Comment.types';
+import { CommentType } from 'shared/types/Comment.types';
 
 export type CommentsListProps = {
   data: CommentType[];

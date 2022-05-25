@@ -1,6 +1,6 @@
 import { Col, Image } from 'react-bootstrap';
 import classnames from 'classnames';
-import { StatisticsColType } from './StatisticsCol.types';
+import { StatisticsColProps } from './StatisticsCol.types';
 import styles from './StatisticsCol.module.css';
 
 const StatisticsCol = ({
@@ -10,7 +10,7 @@ const StatisticsCol = ({
   alt,
   isPositive,
   isNegative,
-}: StatisticsColType) => (
+}: StatisticsColProps) => (
   <Col xs={12} sm={6} md={4} xl={4} className='py-3 py-md-0'>
     <div className='d-flex justify-content-center'>
       <div className='d-flex'>

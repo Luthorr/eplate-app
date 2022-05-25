@@ -1,4 +1,4 @@
-export type StatisticsColType = {
+export type StatisticsColProps = {
   icon: string;
   text: number;
   textMuted: string;

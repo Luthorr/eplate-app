@@ -6,8 +6,6 @@ import discussion from 'ui/assets/images/discussion.svg';
 import BubbleDiv from 'ui/atoms/BubbleDiv/BubbleDiv';
 import classnames from 'classnames';
 import SearchBar from 'ui/molecules/SearchBar/SearchBar';
-import filterIcon from 'ui/assets/icons/filter.svg';
-import useComments from 'hooks/useComments';
 import CommentHeadingRow from 'ui/molecules/CommentHeadingRow/CommentHeadingRow';
 import { useAddComment } from 'hooks/useCommentsData';
 

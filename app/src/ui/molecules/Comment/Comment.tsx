@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import avt from 'ui/assets/images/avatar.jpg';
 import Avatar from 'ui/atoms/Avatar/Avatar';
 import CommentRating from 'ui/atoms/CommentRating/CommentRating';
-import { CommentProps } from 'shared/interfaces/Comment.types';
+import { CommentProps } from 'shared/types/Comment.types';
 import Opinion from 'constants/Opinion';
 import Icon from 'ui/atoms/Icon/Icon';
 import goodMood from 'ui/assets/icons/moodGood.svg';

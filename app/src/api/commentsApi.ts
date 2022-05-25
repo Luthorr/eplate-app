@@ -1,8 +1,6 @@
 /* eslint-disable implicit-arrow-linebreak */
-import {
-  CommentDetailsType,
-  CommentType,
-} from 'shared/interfaces/Comment.types';
+import { CommentDetailsType, CommentType } from 'shared/types/Comment.types';
+import { RankingRecord } from 'shared/types/Ranking.types';
 import api from './base';
 
 export const getComments = async (): Promise<CommentType[]> => {
@@ -37,6 +35,16 @@ export const getCommentsByValue = async (
   value: string,
 ): Promise<CommentType[]> => {
   const { data } = await api.get(`/comments/plate/term/${value}`);
+  return data;
+};
+
+export const getRanking = async (): Promise<{
+  [key: string]: {
+    best: RankingRecord[];
+    worst: RankingRecord[];
+  };
+}> => {
+  const { data } = await api.get('/comments/ranking');
   return data;
 };
 

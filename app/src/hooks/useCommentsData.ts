@@ -2,14 +2,12 @@ import { useQuery, useMutation, useQueryClient } from 'react-query';
 import {
   getComments,
   getCommentsByValue,
+  getRanking,
   getSinglePlateComments,
   postComment,
   rateComment,
 } from 'api/commentsApi';
-import {
-  CommentDetailsType,
-  CommentType,
-} from 'shared/interfaces/Comment.types';
+import { CommentDetailsType, CommentType } from 'shared/types/Comment.types';
 import { v4 as uuidv4 } from 'uuid';
 
 import Opinion from 'constants/Opinion';
@@ -21,6 +19,8 @@ export const useCommentsDataByValue = (value: string) =>
 
 export const useCommentData = (id: string) =>
   useQuery(['comments', id], () => getSinglePlateComments(id));
+
+export const useDriversRanking = () => useQuery('ranking', getRanking);
 
 export const useAddCommentRating = () => {
   const queryClient = useQueryClient();

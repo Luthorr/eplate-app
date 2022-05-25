@@ -1,5 +1,5 @@
 import Comment from 'ui/molecules/Comment/Comment';
-import { CommentType } from 'shared/interfaces/Comment.types';
+import { CommentType } from 'shared/types/Comment.types';
 
 import { CommentsListProps } from './CommentsList.types';
 
